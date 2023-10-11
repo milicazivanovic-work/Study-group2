@@ -1,18 +1,23 @@
-# What is the program about
 
-The hello.js file contains 3 different approaches of printing out paramater **name** 5 times:
+# What is the test about and how to run it
 
-1. Using a predefind parameter {name} and printing out the greeting 5 times
-2. Passing a command line argument and printing that value as Hello {argument} by typing:
+The **spec.cy.js** test is opening opening the Work & Co website in a browser and checking if the headline mathes the given text.
 
+##Commands:
+
+Install dependencies:
 ```
-node hello.js John
+npm install
 ```
-
-which will print out "Hello John", or if a command you are using:
-
+Open Cypress runner:
 ```
-node hello.js
+npx cypress open
 ```
-
-then it will print out set name 5 times
+Run all tests (default browser is headless Electron):
+```
+npx cypress run
+```
+Run all tests in Chrome:
+```
+npx cypress run --browser chrome
+```
