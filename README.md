@@ -1,3 +1,4 @@
+
 # What is the test about and how to run it
 
 The **spec.cy.js** test is opening opening the Work & Co website in a browser and checking if the headline mathes the given text.
