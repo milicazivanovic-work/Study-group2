@@ -1,0 +1,10 @@
+{
+    "validUser": {
+      "username": "standard_user",
+      "password": "secret_sauce"
+    },
+    "invalidUser": {
+      "username": "milica.zivanovic@work.co",
+      "password": "secret_sauce"
+    }
+  }
