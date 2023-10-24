@@ -1,6 +1,8 @@
+import LandingPage from "../support/page-object/landing-page";
+
 describe("SauceDemo website test", () => {
   beforeEach(() => {
-    cy.visit("");
+    LandingPage.open();
   });
 
   it("Opens SauceDemo site, check the page title", () => {
@@ -11,11 +13,11 @@ describe("SauceDemo website test", () => {
     cy.fixture("login.json").then((loginData) => {
       const { invalidUser } = loginData;
 
-      cy.get('[data-test="username"]').type(invalidUser.username);
-      cy.get('[data-test="password"]').type(invalidUser.password);
-      cy.get('[data-test="login-button"]').click();
+      LandingPage.username.type(invalidUser.username);
+      LandingPage.password.type(invalidUser.password);
+      LandingPage.loginBtn.click();
       cy.url().should("eq", "https://www.saucedemo.com/");
-      cy.get('[data-test="error"]').should(
+      LandingPage.errorMsg.should(
         "have.text",
         "Epic sadface: Username and password do not match any user in this service"
       );
@@ -26,9 +28,9 @@ describe("SauceDemo website test", () => {
     cy.fixture("login.json").then((loginData) => {
       const { validUser } = loginData;
 
-      cy.get('[data-test="username"]').type(validUser.username);
-      cy.get('[data-test="password"]').type(validUser.password);
-      cy.get('[data-test="login-button"]').click();
+      LandingPage.username.type(validUser.username);
+      LandingPage.password.type(validUser.password);
+      LandingPage.loginBtn.click();
       cy.url().should("include", "https://www.saucedemo.com/");
     });
   });
@@ -37,11 +39,11 @@ describe("SauceDemo website test", () => {
     cy.fixture("login.json").then((loginData) => {
       const { validUser } = loginData;
 
-      cy.get('[data-test="username"]').type(validUser.username);
-      cy.get('[data-test="password"]').type(validUser.password);
-      cy.get('[data-test="login-button"]').click();
-      cy.get("#react-burger-menu-btn").click();
-      cy.get("#logout_sidebar_link").click();
+      LandingPage.username.type(validUser.username);
+      LandingPage.password.type(validUser.password);
+      LandingPage.loginBtn.click();
+      LandingPage.menuBtn.click();
+      LandingPage.logoutLink.click();
       cy.url().should("eq", "https://www.saucedemo.com/");
     });
   });

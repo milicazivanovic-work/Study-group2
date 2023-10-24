@@ -1,3 +1,7 @@
+import CartPage from "../support/page-object/cart-page";
+import HomePage from "../support/page-object/home-page";
+import CheckoutPage from "../support/page-object/checkout-page";
+
 beforeEach(() => {
   cy.fixture("login.json").then((loginData) => {
     const { validUser } = loginData;
@@ -8,10 +12,10 @@ beforeEach(() => {
 
 describe("SauceDemo website test, continue on checkout without user info", () => {
   it("Opens checkout, tries to continue, expect errors", () => {
-    cy.get("#shopping_cart_container").click();
-    cy.get('[data-test="checkout"]').click();
-    cy.get('[data-test="continue"]').click();
-    cy.get('[data-test="error"]').should(
+    HomePage.shoppingCartBtn.click();
+    CartPage.checkoutBtn.click();
+    CheckoutPage.checkoutContinueBtn.click();
+    CheckoutPage.errorMsg.should(
       "have.text",
       "Error: First Name is required"
     );
@@ -19,49 +23,61 @@ describe("SauceDemo website test, continue on checkout without user info", () =>
 });
 
 describe("SauceDemo website test, finish checkout", () => {
-  it("Checks for empty cart, adds an item to a cart, checks out, verifies the empty cart", () => {
-    cy.get(".shopping_cart_badge").should("not.exist");
-    cy.get('[data-test="add-to-cart-sauce-labs-backpack"]').click();
-    cy.get(".shopping_cart_badge").should("have.text", "1");
-    cy.get("#shopping_cart_container").click();
-    cy.get(".inventory_item_name").should("have.text", "Sauce Labs Backpack");
-    cy.get(".cart_quantity").should("have.text", "1");
-    cy.get(".inventory_item_price").should("have.text", "$29.99");
-    cy.get('[data-test="remove-sauce-labs-backpack"]').should("be.visible");
-    cy.get('[data-test="continue-shopping"]').should("be.visible");
-    cy.get('[data-test="checkout"]').should("be.visible").click();
-    cy.get('[data-test="firstName"]').type("James");
-    cy.get('[data-test="lastName"]').type("Jones");
-    cy.get('[data-test="postalCode"]').type("78701");
-    cy.get('[data-test="continue"]').click();
-    cy.get(".title").should("have.text", "Checkout: Overview");
-    cy.get(".inventory_item_name").should("have.text", "Sauce Labs Backpack");
-    cy.get('[data-test="finish"]').click();
-    cy.get(".complete-header").should("be.visible");
+  it("Checks for empty cart", () => {
+    HomePage.shoppingCartBadge.should("not.exist");
+  });  
+
+  it("Adds an item to a cart, checks the cart badge", () => {
+      HomePage.addSauceLabsBackpackToCartBtn.click();
+      HomePage.shoppingCartBadge.should("have.text", "1");
+      HomePage.shoppingCartBtn.click();
+    }); 
+
+  it("Adds an item to a cart, checks the item in a cart, goes to checkout", () => {
+    HomePage.addSauceLabsBackpackToCartBtn.click();
+    HomePage.shoppingCartBtn.click();
+    CartPage.itemName.should("have.text", "Sauce Labs Backpack");
+    CartPage.cartQuantity.should("have.text", "1");
+    CartPage.itemPrice.should("have.text", "$29.99");
+    CartPage.removeSauceLabsBackpackBtn.should("be.visible");
+    CartPage.continueShoppingBtn.should("be.visible");
+    CartPage.checkoutBtn.should("be.visible").click();
+  }); 
+});  
+
+  it("Adds an item to a cart, goes to checkout, enters user's data, continues to finish", () => {
+    HomePage.addSauceLabsBackpackToCartBtn.click();
+    HomePage.shoppingCartBtn.click();
+    CartPage.checkoutBtn.should("be.visible").click();
+    CheckoutPage.firstName.type("James");
+    CheckoutPage.lastName.type("Jones");
+    CheckoutPage.postalCode.type("78701");
+    CheckoutPage.checkoutContinueBtn.click();
+    CheckoutPage.checkoutTitle.should("have.text", "Checkout: Overview");
+    CheckoutPage.itemName.should("have.text", "Sauce Labs Backpack");
+    CheckoutPage.finishBtn.click();
+    CheckoutPage.checkoutComplete.should("be.visible");
     cy.url().should("eq", "https://www.saucedemo.com/checkout-complete.html");
-    cy.get('[data-test="back-to-products"]').should("be.visible").click();
+    CheckoutPage.backBtn.should("be.visible").click();
     cy.url().should("eq", "https://www.saucedemo.com/inventory.html");
-    cy.get(".shopping_cart_badge").should("not.exist");
+    HomePage.shoppingCartBadge.should("not.exist");
   });
-});
 
 describe("SauceDemo website test, add item to cart and remove", () => {
-  it("Adds an item to a cart, removes item, verifies the empty cart", () => {
-    cy.get('[data-test="add-to-cart-sauce-labs-bolt-t-shirt"]').click();
-    cy.get(".shopping_cart_badge").should("have.text", "1");
-    cy.get("#shopping_cart_container").click();
-    cy.get('[data-test="remove-sauce-labs-bolt-t-shirt"]').click();
-    cy.get(".shopping_cart_badge").should("not.exist");
+  it("Adds an item to a cart, verifies the cart badge", () => {
+    HomePage.addSauceLabsTshirtToCartBtn.click();
+    HomePage.shoppingCartBadge.should("have.text", "1");
+    HomePage.shoppingCartBtn.click();
+    CartPage.removeSauceLabsTshirtBtn.click();
+    CartPage.shoppingCartBadge.should("not.exist");
   });
 });
 
 describe("SauceDemo website test, add item to cart and continue shopping", () => {
   it("Adds an item to a cart, continues shopping, verifies the item is still in the bag", () => {
-    cy.get(
-      '[data-test="add-to-cart-test.allthethings()-t-shirt-(red)"]'
-    ).click();
-    cy.get("#shopping_cart_container").click();
-    cy.get('[data-test="continue-shopping"]').click();
-    cy.get(".shopping_cart_badge").should("have.text", "1");
+    HomePage.addSauceLabsRedShirtToCartBtn.click();
+    HomePage.shoppingCartBtn.click();
+    CartPage.continueShoppingBtn.click();
+    HomePage.shoppingCartBadge.should("have.text", "1");
   });
 });
