@@ -23,16 +23,31 @@ describe("SauceDemo website test, continue on checkout without user info", () =>
 });
 
 describe("SauceDemo website test, finish checkout", () => {
-  it("Checks for empty cart, adds an item to a cart, checks out, verifies the empty cart", () => {
+  it("Checks for empty cart", () => {
     HomePage.shoppingCartBadge.should("not.exist");
+  });  
+
+  it("Adds an item to a cart, checks the cart badge", () => {
+      HomePage.addSauceLabsBackpackToCartBtn.click();
+      HomePage.shoppingCartBadge.should("have.text", "1");
+      HomePage.shoppingCartBtn.click();
+    }); 
+
+  it("Adds an item to a cart, checks the item in a cart, goes to checkout", () => {
     HomePage.addSauceLabsBackpackToCartBtn.click();
-    HomePage.shoppingCartBadge.should("have.text", "1");
     HomePage.shoppingCartBtn.click();
     CartPage.itemName.should("have.text", "Sauce Labs Backpack");
     CartPage.cartQuantity.should("have.text", "1");
     CartPage.itemPrice.should("have.text", "$29.99");
     CartPage.removeSauceLabsBackpackBtn.should("be.visible");
     CartPage.continueShoppingBtn.should("be.visible");
+    CartPage.checkoutBtn.should("be.visible").click();
+  }); 
+});  
+
+  it("Adds an item to a cart, goes to checkout, enters user's data, continues to finish", () => {
+    HomePage.addSauceLabsBackpackToCartBtn.click();
+    HomePage.shoppingCartBtn.click();
     CartPage.checkoutBtn.should("be.visible").click();
     CheckoutPage.firstName.type("James");
     CheckoutPage.lastName.type("Jones");
@@ -47,10 +62,9 @@ describe("SauceDemo website test, finish checkout", () => {
     cy.url().should("eq", "https://www.saucedemo.com/inventory.html");
     HomePage.shoppingCartBadge.should("not.exist");
   });
-});
 
 describe("SauceDemo website test, add item to cart and remove", () => {
-  it("Adds an item to a cart, removes item, verifies the empty cart", () => {
+  it("Adds an item to a cart, verifies the cart badge", () => {
     HomePage.addSauceLabsTshirtToCartBtn.click();
     HomePage.shoppingCartBadge.should("have.text", "1");
     HomePage.shoppingCartBtn.click();
