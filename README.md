@@ -27,7 +27,7 @@ npx cypress run --browser chrome --config-file cypress.saucedemo.config.js
 ```
 Run tests for Saucedemo website in Chrome using alias:
 ```
-npm run cy:run:saucedemo
+npm run saucedemo
 ```
 Run tests for Work&Co website in Chrome:
 ```
@@ -35,5 +35,5 @@ npx cypress run --browser chrome --config-file cypress.workco.config.js
 ```
 Run tests for Work&Co website in Chrome using alias:
 ```
-npm run cy:run:workco
+npm run workco
 ```

@@ -5,8 +5,8 @@
   "main": "cypress.config.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "cy:run:saucedemo": "cypress run --e2e --browser chrome --config-file cypress.saucedemo.config.js",
-    "cy:run:workco": "cypress run --e2e --browser chrome --config-file cypress.workco.config.js"
+    "saucedemo": "cypress run --e2e --browser chrome --config-file cypress.saucedemo.config.js",
+    "workco": "cypress run --e2e --browser chrome --config-file cypress.workco.config.js"
   },
   "author": "",
   "license": "ISC",
