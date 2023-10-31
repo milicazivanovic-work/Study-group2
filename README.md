@@ -21,11 +21,19 @@ Run all tests in Chrome: /won't work due to different baseURLs
 ```
 npx cypress run --browser chrome
 ```
-Run tests from Saucedemo website in Chrome:
+Run tests for Saucedemo website in Chrome:
 ```
 npx cypress run --browser chrome --config-file cypress.saucedemo.config.js
 ```
-Run tests from Work&Co website in Chrome:
+Run tests for Saucedemo website in Chrome using alias:
+```
+npm run cy:run:saucedemo
+```
+Run tests for Work&Co website in Chrome:
 ```
 npx cypress run --browser chrome --config-file cypress.workco.config.js  
+```
+Run tests for Work&Co website in Chrome using alias:
+```
+npm run cy:run:workco
 ```
