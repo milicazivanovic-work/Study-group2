@@ -1,10 +1,13 @@
+import WorkCoLandingPage from "../support/page-object/workco-landing";
+import WorkCoNewsPage from "../support/page-object/workco-news";
+
 describe("Work & Co News links test", () => {
   it("Opens W&C site/News, iterates and opens each link, checks H1 for each page", () => {
-    cy.visit("https://work.co/");
-    cy.get('[data-test-id="global-menu-btn"]').click();
-    cy.get('[data-test-id="grid-news-link"]').click();
+    cy.visit("/");
+    WorkCoLandingPage.menuBtn.click();
+    WorkCoLandingPage.newsLink.click();
 
-    cy.get(".TitleDateList>li").then((newsLinks) => {
+    WorkCoNewsPage.newsLinks.then((newsLinks) => {
       cy.wrap(newsLinks).each((newsLink, index) => {
         if (index === 0) {
           return;
@@ -15,7 +18,7 @@ describe("Work & Co News links test", () => {
 
         cy.visit(linkHref);
 
-        cy.get(".Header1News").should("have.text", linkText);
+        WorkCoNewsPage.newsHeader.should("have.text", linkText);
 
         cy.go("back");
       });

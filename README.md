@@ -13,11 +13,19 @@ Open Cypress runner:
 ```
 npx cypress open
 ```
-Run all tests (default browser is headless Electron):
+Run all tests (default browser is headless Electron): /won't work due to different baseURLs
 ```
 npx cypress run
 ```
-Run all tests in Chrome:
+Run all tests in Chrome: /won't work due to different baseURLs
 ```
 npx cypress run --browser chrome
+```
+Run specific test from Saucedemo website in Chrome:
+```
+npx cypress run --spec "cypress/e2e/login.cy.js" --browser chrome --config-file cypress.saucedemo.config.js
+```
+Run specific test from Work&Co website in Chrome:
+```
+npx cypress run --spec "cypress/e2e/news.cy.js" --browser chrome --config-file cypress.workco.config.js   
 ```

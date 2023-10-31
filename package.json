@@ -11,5 +11,8 @@
   "devDependencies": {
     "cypress": "^13.3.0",
     "prettier": "3.0.3"
-  }
+  },
+  "cy:run:saucedemo": "cypress run --e2e --browser chrome --config-file cypress.saucedemo.config.js",
+  "cy:run:workco": "cypress run --e2e --browser chrome --config-file cypress.workco.config.js"
+
 }
