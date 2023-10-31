@@ -4,15 +4,15 @@
   "description": "",
   "main": "cypress.config.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "cy:run:saucedemo": "cypress run --e2e --browser chrome --config-file cypress.saucedemo.config.js",
+    "cy:run:workco": "cypress run --e2e --browser chrome --config-file cypress.workco.config.js"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "cypress": "^13.3.0",
     "prettier": "3.0.3"
-  },
-  "cy:run:saucedemo": "cypress run --e2e --browser chrome --config-file cypress.saucedemo.config.js",
-  "cy:run:workco": "cypress run --e2e --browser chrome --config-file cypress.workco.config.js"
+  }
 
 }
