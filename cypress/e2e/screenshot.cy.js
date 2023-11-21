@@ -8,6 +8,6 @@ describe("Take a screenshot", () => {
     cy.screenshot();
 
     //Compare screenshot using cypress-image-diff plugin
-    cy.compareSnapshot('belgrade');
+    cy.compareSnapshot("belgrade");
   });
 });
