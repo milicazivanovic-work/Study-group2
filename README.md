@@ -1,7 +1,10 @@
 
 # What is the test about and how to run it
 
-The **spec.cy.js** test is opening opening the Work & Co website in a browser and checking if the headline mathes the given text.
+The **screenshot.cy.js** test is opening the Work & Co website/URL for Belgrade office in a browser and taking a screenshot of the entire page, as well as doing a comparison using the plugin [cypress-image-diff](https://github.com/uktrade/cypress-image-diff)
+
+The **screenshot-test.cy.js** test is opening the Saucedemo website in a browser, taking a screenshot of the entire page, adding an item into a cart, capturing the screen and comparing it to the baseline, again, by using the forementioned plugin
+
 
 ##Commands:
 
